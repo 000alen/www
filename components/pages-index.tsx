@@ -31,7 +31,7 @@ export function Index() {
 
           <h2 className="font-normal mb-2">today</h2>
           <p className="mb-8">
-            i'm a machine learning engineer at dataroot, building a paas for
+            i&apos;m a machine learning engineer at dataroot, building a paas for
             managed machine learning powered applications.
           </p>
 
@@ -68,7 +68,7 @@ export function Index() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                HackMIT's Inclusive Social Networks challenge
+                HackMIT&apos;s Inclusive Social Networks challenge
               </Link>
             </li>
             <li>
