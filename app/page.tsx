@@ -1,13 +1,16 @@
 import { NOTION_PROJECTS_URL } from "@/lib/constants";
-import Link from "next/link";
+import CustomLink from "@/components/CustomLink";
 
-export default function Home() {
+export default function Page() {
   return <div className="min-h-screen bg-black text-white p-6 font-mono flex items-center justify-center">
     <div className="max-w-2xl w-full text-sm [&>p]:text-xs [&>p]:text-[#909090] [&_a]:text-xs [&_a]:text-[#909090]">
       <h1 className="font-normal mb-2">
         alen rubilar<span className="caret">_</span>
       </h1>
-      <p className="mb-4">san francisco, usa</p>
+
+      <p className="mb-4">
+        san francisco, usa
+      </p>
 
       <div className="mb-8"></div>
 
@@ -16,16 +19,16 @@ export default function Home() {
         i&apos;m a machine learning engineer at dataroot, building a paas for
         managed machine learning powered applications.
       </p>
+
       <p className="mb-8">
         on the side, i&apos;m currently working on{" "}
-        <Link
+        <CustomLink
           href={NOTION_PROJECTS_URL}
-          className="text-[#909090]"
-          target="_blank"
-          rel="noopener noreferrer"
+          title="Projects"
+          description="I decided I would start documenting and keeping track of my projects. I'm not sure how long I'll keep this up, but here are some of the things I've worked on."
         >
           these projects
-        </Link>
+        </CustomLink>
         .
       </p>
 
@@ -46,66 +49,60 @@ export default function Home() {
       <h2 className="font-normal mb-2">awards</h2>
       <ul className="list-none p-0 space-y-1 mb-8">
         <li>
-          <Link
+          <CustomLink
             href="https://github.com/000alen/pulsebud"
-            className="text-[#909090]"
-            target="_blank"
-            rel="noopener noreferrer"
+            title="PulseBud @ CalHacks"
+            description="I won the competition by building a model to predict seizures on real-time from measurements taken by a smartwatch."
           >
             CalHacks and several partner challenges
-          </Link>
+          </CustomLink>
         </li>
         <li>
-          <Link
+          <CustomLink
             href="https://github.com/000alen/phaedra"
-            className="text-[#909090]"
-            target="_blank"
-            rel="noopener noreferrer"
+            title="Phaedra @ HackMIT"
+            description="I won some partner challenge by building a platform to facilitate traditional knowledge transfer in the workplace."
           >
-            HackMIT&apos;s Inclusive Social Networks challenge
-          </Link>
+            HackMIT&apos;s Inclusive Workplace challenge
+          </CustomLink>
         </li>
         <li>
-          <Link
+          <CustomLink
             href="https://github.com/000alen/totemuv"
-            className="text-[#909090]"
-            target="_blank"
-            rel="noopener noreferrer"
+            title="TotemUV @ Solve for Tomorrow"
+            description="I won the competition by building a device to predict skin cancer from UV imaging."
           >
             Solve for Tomorrow
-          </Link>
+          </CustomLink>
         </li>
       </ul>
 
       <h2 className="font-normal mb-2">connect</h2>
       <p className="mb-8">
         reach me on{" "}
-        <Link
+        <CustomLink
           href="https://x.com/000alen"
-          className="text-[#909090]"
-          target="_blank"
-          rel="noopener noreferrer"
+          title="𝕏"
+          description="I retweet a lot of cool stuff."
         >
           𝕏
-        </Link>{" "}
+        </CustomLink>{" "}
         or find me on{" "}
-        <Link
+        <CustomLink
           href="https://github.com/000alen"
-          className="text-[#909090]"
-          target="_blank"
-          rel="noopener noreferrer"
+          title="GitHub"
+          description="I'm very active on GitHub, so you can find some of my projects there."
         >
           github
-        </Link>{" "}
+        </CustomLink>{" "}
         and{" "}
-        <Link
+        <CustomLink
           href="https://www.linkedin.com/in/000alen/"
-          className="text-[#909090]"
-          target="_blank"
-          rel="noopener noreferrer"
+          title="LinkedIn"
+          description="I'm not very active on LinkedIn, but you can find some of my projects there."
         >
           linkedin
-        </Link>
+        </CustomLink>
         .
       </p>
     </div>
