@@ -1,3 +1,4 @@
+import { NOTION_PROJECTS_URL } from "@/lib/constants";
 import Link from "next/link";
 
 export default function Home() {
@@ -18,7 +19,7 @@ export default function Home() {
       <p className="mb-8">
         on the side, i&apos;m currently working on{" "}
         <Link
-          href="https://000alen.notion.site/Projects-19ede7d2d0f78030b0a2e43b3ba96391"
+          href={NOTION_PROJECTS_URL}
           className="text-[#909090]"
           target="_blank"
           rel="noopener noreferrer"
