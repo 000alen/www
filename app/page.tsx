@@ -15,6 +15,18 @@ export default function Home() {
         i&apos;m a machine learning engineer at dataroot, building a paas for
         managed machine learning powered applications.
       </p>
+      <p className="mb-8">
+        on the side, i&apos;m currently working on{" "}
+        <Link
+          href="https://000alen.notion.site/Projects-19ede7d2d0f78030b0a2e43b3ba96391"
+          className="text-[#909090]"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          these projects
+        </Link>
+        .
+      </p>
 
       <h2 className="font-normal mb-2">research</h2>
       <p className="mb-8">
