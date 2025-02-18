@@ -1,5 +1,6 @@
 import { NOTION_PROJECTS_URL } from "@/lib/constants";
 import CustomLink from "@/components/CustomLink";
+import HaveWeMet from "@/components/HaveWeMet";
 
 export default function Page() {
   return <div className="min-h-screen bg-black text-white p-6 font-mono flex items-center justify-center">
@@ -105,6 +106,8 @@ export default function Page() {
         </CustomLink>
         .
       </p>
+
+      <HaveWeMet />
     </div>
   </div>;
 }
