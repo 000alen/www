@@ -8,9 +8,14 @@ import { embeddingModel, getMessages, languageModel } from "@/lib/llm";
 import { introSchema, introGenerationSchema } from "@/lib/types";
 import { logger } from "@/lib/logging";
 import { rateLimit } from "@/lib/rate-limit";
+import { redis } from "@/lib/redis";
 import { cosineDistance, eq, sql, gt, desc } from "drizzle-orm";
+import { waitUntil } from "@vercel/functions";
 
 const log = logger.extend("trpc");
+
+// Cache TTL in seconds (24 hours)
+const INTRO_CACHE_TTL = 86400;
 
 export const api = router({
   intro: router({
@@ -21,6 +26,21 @@ export const api = router({
       .output(introSchema)
       .query(async ({ input }) => {
         log("api.intro.get", { input });
+
+        const cacheKey = `intro.get:${input.slug}`;
+        const unparsedCached = await redis.get(cacheKey);
+        if (unparsedCached) {
+          log("api.intro.get: Cache hit", { input });
+
+          const cached = await introSchema
+            .parseAsync(unparsedCached)
+            .catch((error) => {
+              log("api.intro.get: Failed to parse cached intro", { error, input, unparsedCached });
+              return null;
+            });
+
+          if (cached) return cached;
+        }
 
         const [record] = await db
           .select()
@@ -45,7 +65,7 @@ export const api = router({
           });
         }
 
-        return await introSchema
+        const parsedIntro = await introSchema
           .parseAsync(record.intro)
           .catch((error) => {
             log("api.intro.get: Failed to parse intro", { error, input, record });
@@ -55,6 +75,16 @@ export const api = router({
               message: "Failed to parse intro",
             });
           });
+
+        waitUntil(
+          redis
+            .set(cacheKey, parsedIntro, { ex: INTRO_CACHE_TTL })
+            .catch((error) => {
+              log("api.intro.get: Failed to cache intro", { error, input });
+            })
+        );
+
+        return parsedIntro;
       }),
 
     query: procedure
@@ -66,6 +96,24 @@ export const api = router({
       }))
       .query(async ({ input }) => {
         log("api.intro.query", { input });
+
+        const cacheKey = `intro.query:${input.query}`;
+        const unparsedCached = await redis.get(cacheKey);
+        if (unparsedCached) {
+          log("api.intro.query: Cache hit", { input });
+
+          const cached = await z
+            .string()
+            .parseAsync(unparsedCached)
+            .catch((error) => {
+              log("api.intro.query: Failed to parse cached intro", { error, input, unparsedCached });
+              return null;
+            });
+
+          if (cached) return {
+            slug: cached,
+          };
+        }
 
         const { embedding } = await embed({
           model: embeddingModel,
@@ -111,6 +159,14 @@ export const api = router({
           });
         }
 
+        waitUntil(
+          redis
+            .set(cacheKey, record.slug, { ex: INTRO_CACHE_TTL })
+            .catch((error) => {
+              log("api.intro.query: Failed to cache intro", { error, input });
+            })
+        );
+
         return record;
       }),
 
@@ -136,18 +192,11 @@ export const api = router({
           });
         }
 
-        const [{ object }, { embedding }] = await Promise
-          .all([
-            generateObject({
-              model: languageModel,
-              schema: introGenerationSchema,
-              messages: await getMessages(input.query),
-            }),
-            embed({
-              model: embeddingModel,
-              value: input.query,
-            })
-          ])
+        const { object } = await generateObject({
+          model: languageModel,
+          schema: introGenerationSchema,
+          messages: await getMessages(input.query),
+        })
           .catch((error) => {
             log("api.intro.create: Failed to generate intro", { error, input });
 
@@ -157,47 +206,50 @@ export const api = router({
             });
           });
 
-        const [record] = await db
-          .insert(intros)
-          .values({
-            slug: object.slug,
-            query: input.query,
-            intro: {
-              text: object.text,
-            },
-            embedding,
-          })
-          .returning()
-          .catch((error) => {
-            log("api.intro.create: Failed to create intro", { error, input });
+        const { slug, text } = object;
+        const intro: z.infer<typeof introSchema> = {
+          text,
+        };
 
-            throw new TRPCError({
-              code: "INTERNAL_SERVER_ERROR",
-              message: "Failed to create intro",
-            });
-          });
+        waitUntil(
+          (async () => {
+            const cacheKey = `intro.get:${object.slug}`;
 
-        if (!record) {
-          log("api.intro.create: Failed to create intro", { input });
+            await redis
+              .set(cacheKey, intro, { ex: INTRO_CACHE_TTL })
+              .catch((error) => {
+                log("api.intro.create: Failed to cache intro", { error, input });
+              });
 
-          throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-            message: "Failed to create intro",
-          });
-        }
+            const embedding = await embed({
+              model: embeddingModel,
+              value: input.query,
+            })
+              .then((r) => r.embedding);
+
+            await db
+              .insert(intros)
+              .values({
+                slug,
+                query: input.query,
+                intro,
+                embedding,
+              })
+              .returning()
+              .catch((error) => {
+                log("api.intro.create: Failed to create intro", { error, input });
+
+                throw new TRPCError({
+                  code: "INTERNAL_SERVER_ERROR",
+                  message: "Failed to create intro",
+                });
+              })
+          })()
+        );
 
         return {
-          slug: record.slug,
-          intro: await introSchema
-            .parseAsync(record.intro)
-            .catch((error) => {
-              log("api.intro.create: Failed to parse intro", { error, input, record });
-
-              throw new TRPCError({
-                code: "INTERNAL_SERVER_ERROR",
-                message: "Failed to parse intro",
-              });
-            })
+          slug,
+          intro,
         }
       })
   }),
