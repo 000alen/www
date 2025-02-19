@@ -14,7 +14,7 @@ const withQueryClient = <P extends object>(Component: FC<P>) => (props: P) => (
   </QueryClientProvider>
 );
 
-const HaveWeMet = () => {
+function HaveWeMet() {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -42,7 +42,7 @@ const HaveWeMet = () => {
       router.push(`/intro/${data.slug}`);
     },
 
-    onError: (error) => {
+    onError: () => {
       toast({
         title: "Error",
         description: "Error creating intro",
