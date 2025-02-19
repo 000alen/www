@@ -1,6 +1,5 @@
 "use server";
 
-import { z } from "zod";
 import { createCaller } from "@/trpc/server";
 import { logger } from "@/lib/logging";
 
@@ -18,23 +17,8 @@ export type CreateIntroState = {
   error: string;
 }
 
-const createIntroSchema = z.object({
-  query: z.string(),
-});
-
-export async function createIntro(state: CreateIntroState, formData: FormData): Promise<CreateIntroState> {
-  const data = {
-    query: formData.get("query"),
-  }
-
+export async function createIntro(query: string): Promise<CreateIntroState> {
   try {
-    const { query } = await createIntroSchema
-      .parseAsync(data)
-      .catch((error) => {
-        log("createIntro: Failed to parse form data", { error, data });
-        throw error;
-      });
-
     const trpc = createCaller({
       headers: new Headers(),
     })
@@ -43,7 +27,7 @@ export async function createIntro(state: CreateIntroState, formData: FormData): 
       .intro
       .create({ query })
       .catch((error) => {
-        log("createIntro: Failed to create intro", { error, data });
+        log("createIntro: Failed to create intro", { error, query });
         throw error;
       });
 
@@ -52,7 +36,7 @@ export async function createIntro(state: CreateIntroState, formData: FormData): 
       slug,
     }
   } catch (error) {
-    log("createIntro: Failed to create intro", { error, data });
+    log("createIntro: Failed to create intro", { error, query });
 
     return {
       type: "error",
