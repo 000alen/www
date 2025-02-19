@@ -1,21 +1,14 @@
 "use client";
 
 import { createIntro } from "@/app/actions";
-import { useRouter } from "next/navigation";
-import { useMutation, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useTransitionRouter } from "next-view-transitions";
+import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
-import { FC } from "react";
-
-const queryClient = new QueryClient();
-
-const withQueryClient = <P extends object>(Component: FC<P>) => (props: P) => (
-  <QueryClientProvider client={queryClient}>
-    <Component {...props} />
-  </QueryClientProvider>
-);
+import { Input } from "./Input";
+import { withQueryClient } from "@/hocs/with-query-client";
 
 function HaveWeMet() {
-  const router = useRouter();
+  const router = useTransitionRouter();
   const { toast } = useToast();
 
   const {
@@ -52,7 +45,7 @@ function HaveWeMet() {
 
   return <>
     <h2 className="font-normal mb-2">have we met?</h2>
-    <form className="mb-8 relative" onSubmit={async (event) => {
+    <form className="mb-8" onSubmit={async (event) => {
       event.preventDefault();
 
       const formData = new FormData(event.target as HTMLFormElement);
@@ -60,25 +53,15 @@ function HaveWeMet() {
 
       await mutateAsync(query);
     }}>
-      <input
+      <Input
         type="text"
         name="query"
         placeholder="Tell me a bit about yourself or where we might have crossed paths..."
-        className="w-full bg-[#111111] border border-[#333333] text-[#909090] p-2 rounded-md text-xs focus:outline-none focus:border-[#555555] transition-colors"
-        disabled={isPending}
+        loading={isPending}
+        action={{
+          label: "→",
+        }}
       />
-
-      <button
-        type="submit"
-        className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 rounded-md text-xs bg-[#222222] text-[#909090] hover:bg-[#333333] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-        disabled={isPending}
-      >
-        {isPending ? (
-          <span className="inline-block animate-spin">⟳</span>
-        ) : (
-          "→"
-        )}
-      </button>
     </form>
   </>;
 }
