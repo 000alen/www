@@ -4,10 +4,15 @@ import createMDX from "@next/mdx";
 const withMDX = createMDX({
   options: {
     remarkPlugins: [
+      // @ts-ignore
       ["remark-gfm"],
+      // @ts-ignore
       // ["remark-math"],
     ],
-    rehypePlugins: [["rehype-katex"]],
+    rehypePlugins: [
+      // @ts-ignore
+      ["rehype-katex"],
+    ],
   },
 });
 
