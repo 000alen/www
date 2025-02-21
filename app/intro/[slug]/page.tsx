@@ -5,27 +5,28 @@ import { Link } from "next-view-transitions";
 import { Metadata } from "next";
 import EmailRequest from "@/components/EmailRequest";
 import Paragraph from "@/components/paragraph";
+import Header from "@/components/header";
 
 const log = logger.extend("intro");
 
-export async function generateMetadata(
-  { params }: { params: Promise<{ slug: string }> }
-): Promise<Metadata> {
-  const { slug } = await params
-    .catch((error) => {
-      log("metadata: Failed to get params", { error });
-      throw redirect(`/`);
-    });
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params.catch((error) => {
+    log("metadata: Failed to get params", { error });
+    throw redirect(`/`);
+  });
 
   const trpc = createCaller({
     headers: new Headers(),
   });
 
-  const intro = await trpc.intro.get({ slug })
-    .catch((error) => {
-      log("metadata: Failed to get intro", { error, slug });
-      throw redirect(`/`);
-    });
+  const intro = await trpc.intro.get({ slug }).catch((error) => {
+    log("metadata: Failed to get intro", { error, slug });
+    throw redirect(`/`);
+  });
 
   return {
     title: `${slug} | intro`,
@@ -33,61 +34,48 @@ export async function generateMetadata(
     openGraph: {
       title: `${slug} | intro`,
       description: intro.text,
-      type: 'article',
+      type: "article",
     },
     twitter: {
-      card: 'summary',
+      card: "summary",
       title: `${slug} | intro`,
       description: intro.text,
     },
   };
 }
 
-export default async function Page(
-  { params }: { params: Promise<{ slug: string }> }
-) {
-  const { slug } = await params
-    .catch((error) => {
-      log("page: Failed to get params", { error });
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params.catch((error) => {
+    log("page: Failed to get params", { error });
 
-      throw redirect(`/`);
-    });
+    throw redirect(`/`);
+  });
 
   const trpc = createCaller({
     headers: new Headers(),
-  })
+  });
 
-  const intro = await trpc
-    .intro
-    .get({ slug })
-    .catch((error) => {
-      log("page: Failed to get intro", { error, slug });
-      throw redirect(`/`);
-    });
+  const intro = await trpc.intro.get({ slug }).catch((error) => {
+    log("page: Failed to get intro", { error, slug });
+    throw redirect(`/`);
+  });
 
   return (
     <div className="max-w-2xl w-full text-sm uppercase">
-      <div className="flex items-center gap-4 mb-6">
-        <Link
-          href="/"
-          className="text-xs text-[#666666] dark:text-[#909090] hover:text-black dark:hover:text-white transition-colors"
-        >
-          ← back
-        </Link>
-      </div>
+      <Header />
 
-      <h1 className="font-normal mb-2">
-        {slug}
-      </h1>
+      <h1 className="font-normal mb-2">{slug}</h1>
 
       <h2 className="font-normal mb-2">intro</h2>
 
-      <Paragraph>
-        {intro.text}
-      </Paragraph>
+      <Paragraph>{intro.text}</Paragraph>
 
       <div className="mb-8" />
       <EmailRequest slug={slug} />
     </div>
-  )
+  );
 }
