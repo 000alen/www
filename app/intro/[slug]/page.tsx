@@ -1,7 +1,6 @@
 import { createCaller } from "@/trpc/server";
 import { logger } from "@/lib/logging";
 import { redirect } from "next/navigation";
-import { Link } from "next-view-transitions";
 import { Metadata } from "next";
 import EmailRequest from "@/components/EmailRequest";
 import Paragraph from "@/components/paragraph";
