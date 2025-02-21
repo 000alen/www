@@ -1,117 +1,131 @@
 import { NOTION_PROJECTS_URL } from "@/lib/constants";
-import CustomLink from "@/components/CustomLink";
 import HaveWeMet from "@/components/HaveWeMet";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import Link from "@/components/link";
+import Paragraph from "@/components/paragraph";
 
 export default function Page() {
-  return <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white p-6 font-mono flex items-center justify-center">
-    <div className="max-w-2xl w-full text-sm [&>p]:text-xs [&>p]:text-[#666666] dark:[&>p]:text-[#909090] [&_a]:text-xs [&_a]:text-[#666666] dark:[&_a]:text-[#909090]">
-      <div className="flex justify-between items-center mb-2">
-        <h1 className="font-normal">
-          alen rubilar<span className="caret">_</span>
-        </h1>
-        <ThemeToggle />
-      </div>
+  return <div className="max-w-2xl w-full text-sm uppercase">
+    <div className="flex justify-between items-center mb-2">
+      <h1 className="font-normal">
+        alen rubilar<span className="caret">_</span>
+      </h1>
+      <ThemeToggle />
+    </div>
 
-      <p className="mb-4">
-        san francisco, usa
-      </p>
+    <Paragraph className="mb-4">
+      san francisco, usa
+    </Paragraph>
 
-      <div className="mb-8"></div>
+    <div className="mb-8"></div>
 
+    <section>
       <h2 className="font-normal mb-2">today</h2>
-      <p className="mb-8">
+
+      <Paragraph className="mb-4">
         i&apos;m a machine learning engineer at dataroot, building a paas for
         managed machine learning powered applications.
-      </p>
+      </Paragraph>
 
-      <p className="mb-8">
+      <Paragraph>
         on the side, i&apos;m currently working on{" "}
-        <CustomLink
+        <Link
           href={NOTION_PROJECTS_URL}
           title="Projects"
           description="I decided I would start documenting and keeping track of my projects. I'm not sure how long I'll keep this up, but here are some of the things I've worked on."
         >
           these projects
-        </CustomLink>
+        </Link>
         .
-      </p>
+      </Paragraph>
+    </section>
 
+    <section>
       <h2 className="font-normal mb-2">research</h2>
-      <p className="mb-8">
+
+      <Paragraph>
         deep learning research at vanderbilt university, working on protein
         folding and structural biology. previously at leipzig university,
         developing topological neural networks for molecule optimization.
-      </p>
+      </Paragraph>
+    </section>
 
+    <section>
       <h2 className="font-normal mb-2">education</h2>
-      <p className="mb-8">
+
+      <Paragraph>
         b.sc. computer science and mathematics at minerva university
         (2024-2026). previously studied at pontificia universidad católica
         de chile and universidad técnica federico santa maría.
-      </p>
+      </Paragraph>
+    </section>
 
+    <section>
       <h2 className="font-normal mb-2">awards</h2>
+
       <ul className="list-none p-0 space-y-1 mb-8">
         <li>
-          <CustomLink
+          <Link
             href="https://github.com/000alen/pulsebud"
             title="PulseBud @ CalHacks"
             description="I won the competition by building a model to predict seizures on real-time from measurements taken by a smartwatch."
           >
             CalHacks and several partner challenges
-          </CustomLink>
+          </Link>
         </li>
         <li>
-          <CustomLink
+          <Link
             href="https://github.com/000alen/phaedra"
             title="Phaedra @ HackMIT"
             description="I won some partner challenge by building a platform to facilitate traditional knowledge transfer in the workplace."
           >
             HackMIT&apos;s Inclusive Workplace challenge
-          </CustomLink>
+          </Link>
         </li>
         <li>
-          <CustomLink
+          <Link
             href="https://github.com/000alen/totemuv"
             title="TotemUV @ Solve for Tomorrow"
             description="I won the competition by building a device to predict skin cancer from UV imaging."
           >
             Solve for Tomorrow
-          </CustomLink>
+          </Link>
         </li>
       </ul>
+    </section>
 
+    <section>
       <h2 className="font-normal mb-2">connect</h2>
-      <p className="mb-8">
+
+      <Paragraph>
         reach me on{" "}
-        <CustomLink
+        <Link
           href="https://x.com/000alen"
           title="𝕏"
           description="I retweet a lot of cool stuff."
         >
           𝕏
-        </CustomLink>{" "}
+        </Link>{" "}
         or find me on{" "}
-        <CustomLink
+        <Link
           href="https://github.com/000alen"
           title="GitHub"
           description="I'm very active on GitHub, so you can find some of my projects there."
         >
           github
-        </CustomLink>{" "}
+        </Link>{" "}
         and{" "}
-        <CustomLink
+        <Link
           href="https://www.linkedin.com/in/000alen/"
           title="LinkedIn"
           description="I'm not very active on LinkedIn, but you can find some of my projects there."
         >
           linkedin
-        </CustomLink>
+        </Link>
         .
-      </p>
+      </Paragraph>
+    </section>
 
-      <HaveWeMet />
-    </div>
+    <HaveWeMet />
   </div>;
 }

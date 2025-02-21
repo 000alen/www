@@ -43,16 +43,19 @@ function HaveWeMet() {
     },
   });
 
-  return <>
+  return <section>
     <h2 className="font-normal mb-2">have we met?</h2>
-    <form className="mb-8" onSubmit={async (event) => {
-      event.preventDefault();
+    <form
+      className="mb-8"
+      onSubmit={async (event) => {
+        event.preventDefault();
 
-      const formData = new FormData(event.target as HTMLFormElement);
-      const query = formData.get("query") as string;
+        const formData = new FormData(event.target as HTMLFormElement);
+        const query = formData.get("query") as string;
 
-      await mutateAsync(query);
-    }}>
+        await mutateAsync(query);
+      }}
+    >
       <Input
         type="text"
         name="query"
@@ -63,7 +66,7 @@ function HaveWeMet() {
         }}
       />
     </form>
-  </>;
+  </section>;
 }
 
 export default withQueryClient(HaveWeMet);

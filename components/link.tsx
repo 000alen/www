@@ -1,27 +1,27 @@
-import { Link } from "next-view-transitions";
+import { Link as TransitionLink } from "next-view-transitions";
 import Hoverable from "@/components/Hoverable";
+import { PropsWithChildren } from "react";
 
-interface CustomLinkProps {
+interface LinkProps {
   href: string;
   title?: string;
   description?: string;
-  children: React.ReactNode;
 }
 
-export default function CustomLink({ href, title, description, children }: CustomLinkProps) {
+export default function Link({ href, title, description, children }: PropsWithChildren<LinkProps>) {
   return (
     <Hoverable
       title={title || href}
       description={description || "Click to open in a new tab"}
     >
-      <Link
+      <TransitionLink
         href={href}
-        className="text-[#909090] text-xs inline-flex"
+        className="text-[#666666] text-xs inline-flex dark:text-[#909090]"
         target="_blank"
         rel="noopener noreferrer"
       >
         {children}
-      </Link>
+      </TransitionLink>
     </Hoverable>
   );
 } 

@@ -72,21 +72,15 @@ body {
 }
 
 * {
-  text-transform: uppercase;
   text-rendering: geometricPrecision;
-}
-h1,
-h2 {
-  font-size: 0.75rem;
-}
-body {
-  background-color: black;
-  margin: 0;
-  padding: 0;
-  font-family: monospace;
 }
 
 ::selection {
+  background: black;
+  color: white;
+}
+
+.dark ::selection {
   background: white;
   color: black;
 }
@@ -128,7 +122,3 @@ a:hover::after {
     opacity: 0;
   }
 }
-
-/* .mb-2 {
-  margin-bottom: 0.2rem;
-} */
