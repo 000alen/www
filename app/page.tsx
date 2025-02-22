@@ -3,6 +3,7 @@ import HaveWeMet from "@/components/HaveWeMet";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Link from "@/components/link";
 import Paragraph from "@/components/paragraph";
+import { TetrisEasterEgg } from "@/components/tetris";
 
 export default function Page() {
   return <div className="max-w-2xl w-full text-sm uppercase">
@@ -128,5 +129,7 @@ export default function Page() {
     </section>
 
     <HaveWeMet />
+
+    <TetrisEasterEgg />
   </div>;
 }

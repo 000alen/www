@@ -66,6 +66,34 @@ function useWindowSize() {
   return size;
 }
 
+function useKeySequence(targetSequence: string) {
+  const [, setSequence] = useState('');
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Only track alphabetic keys
+      if (!/^[a-zA-Z]$/.test(e.key)) {
+        setSequence('');
+        return;
+      }
+
+      setSequence(prev => {
+        const newSequence = (prev + e.key.toLowerCase()).slice(-targetSequence.length);
+        if (newSequence === targetSequence) {
+          setIsActive(true);
+        }
+        return newSequence;
+      });
+    };
+
+    window.addEventListener('keypress', handleKeyPress);
+    return () => window.removeEventListener('keypress', handleKeyPress);
+  }, [targetSequence]);
+
+  return { isActive, setIsActive };
+}
+
 export function Tetris({ onClose }: TetrisProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const GRID_WIDTH = 10;
@@ -445,4 +473,29 @@ export function WrappedTetris() {
       <Tetris onClose={() => setShowTetris(false)} />
     </div>
   )
+}
+
+export function TetrisEasterEgg() {
+  const { isActive, setIsActive } = useKeySequence('tetris');
+
+  if (!isActive) return null;
+
+  return (
+    <div style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      width: "100vw",
+      height: "100vh",
+      zIndex: 9999,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      pointerEvents: "none"
+    }}>
+      <Tetris onClose={() => setIsActive(false)} />
+    </div>
+  );
 }

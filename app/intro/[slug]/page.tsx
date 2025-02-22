@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import EmailRequest from "@/components/EmailRequest";
 import Paragraph from "@/components/paragraph";
 import Header from "@/components/header";
+import { TetrisEasterEgg } from "@/components/tetris";
 
 const log = logger.extend("intro");
 
@@ -75,6 +76,8 @@ export default async function Page({
 
       <div className="mb-8" />
       <EmailRequest slug={slug} />
+
+      <TetrisEasterEgg />
     </div>
   );
 }
