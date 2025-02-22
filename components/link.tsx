@@ -6,9 +6,10 @@ interface LinkProps {
   href: string;
   title?: string;
   description?: string;
+  target?: string;
 }
 
-export default function Link({ href, title, description, children }: PropsWithChildren<LinkProps>) {
+export default function Link({ href, title, description, children, target }: PropsWithChildren<LinkProps>) {
   return (
     <Hoverable
       title={title || href}
@@ -17,8 +18,8 @@ export default function Link({ href, title, description, children }: PropsWithCh
       <TransitionLink
         href={href}
         className="text-[#666666] text-xs inline-flex dark:text-[#909090]"
-        target="_blank"
         rel="noopener noreferrer"
+        target={target}
       >
         {children}
       </TransitionLink>

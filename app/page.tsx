@@ -33,6 +33,7 @@ export default function Page() {
           href={NOTION_PROJECTS_URL}
           title="Projects"
           description="I decided I would start documenting and keeping track of my projects. I'm not sure how long I'll keep this up, but here are some of the things I've worked on."
+          target="_blank"
         >
           these projects
         </Link>
