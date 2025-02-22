@@ -1,6 +1,7 @@
 import Link from "@/components/link";
 import Paragraph from "@/components/paragraph";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { WrappedTetris } from "@/components/tetris";
 
 export default function NotFound() {
   return (
@@ -31,6 +32,8 @@ export default function NotFound() {
           .
         </Paragraph>
       </section>
+
+      <WrappedTetris />
     </div>
   );
 } 
