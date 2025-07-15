@@ -9,7 +9,7 @@ export default function Page() {
   return <div className="max-w-2xl w-full text-sm uppercase">
     <div className="flex justify-between items-center mb-2">
       <h1 className="font-normal">
-        alen rubilar<span className="caret">_</span>
+        alen rubilar-muñoz<span className="caret">_</span>
       </h1>
       <ThemeToggle />
     </div>
@@ -24,7 +24,7 @@ export default function Page() {
       <h2 className="font-normal mb-2">today</h2>
 
       <Paragraph className="mb-4">
-        i&apos;m a machine learning engineer at dataroot, building a paas for
+        i&apos;m a principal software engineer at dataroot, building a paas for
         managed machine learning powered applications.
       </Paragraph>
 
