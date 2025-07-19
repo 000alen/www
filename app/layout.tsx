@@ -8,8 +8,8 @@ import { Toaster } from "@/components/ui/toaster"
 import { ViewTransitions } from "next-view-transitions";
 
 export const metadata: Metadata = {
-  title: "alen rubilar",
-  description: "personal website of alen rubilar",
+  title: "alen rubilar-muñoz",
+  description: "alen's personal website",
 };
 
 export default function RootLayout({
