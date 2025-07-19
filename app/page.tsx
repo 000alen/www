@@ -1,5 +1,5 @@
 import { NOTION_PROJECTS_URL } from "@/lib/constants";
-import HaveWeMet from "@/components/HaveWeMet";
+// import HaveWeMet from "@/components/HaveWeMet";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Link from "@/components/link";
 import Paragraph from "@/components/paragraph";
