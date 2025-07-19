@@ -24,12 +24,12 @@ export default function Page() {
       <h2 className="font-normal mb-2">today</h2>
 
       <Paragraph className="mb-4">
-        i&apos;m a principal software engineer at dataroot, building a paas for
+        i&apos;m a principal software engineer at <Link href="https://dataroot.cl/">dataroot</Link>, building a paas for
         managed machine learning powered applications.
       </Paragraph>
 
       <Paragraph className="mb-4">
-        on the side, i&apos;m helping reinvent computers at tetramem.
+        on the side, i&apos;m helping reinvent computers at <Link href="https://tetramem.com" title="Tetramem" description="Tetramem is a company that is creating in-memory analog hardware accelerators.">tetramem</Link>.
       </Paragraph>
 
       <Paragraph>
