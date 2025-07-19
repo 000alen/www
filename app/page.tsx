@@ -28,8 +28,12 @@ export default function Page() {
         managed machine learning powered applications.
       </Paragraph>
 
+      <Paragraph className="mb-4">
+        on the side, i&apos;m helping reinvent computers at tetramem.
+      </Paragraph>
+
       <Paragraph>
-        on the side, i&apos;m currently working on{" "}
+        in my free time, i work on{" "}
         <Link
           href={NOTION_PROJECTS_URL}
           title="Projects"
