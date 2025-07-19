@@ -132,7 +132,7 @@ export default function Page() {
       </Paragraph>
     </section>
 
-    <HaveWeMet />
+    {/* <HaveWeMet /> */}
 
     <TetrisEasterEgg />
   </div>;
