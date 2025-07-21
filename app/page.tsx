@@ -61,7 +61,7 @@ export default function Page() {
 
       <Paragraph>
         b.sc. computer science and mathematics at <Link href="https://www.minerva.edu/" description="Minerva is an experimental university reinventing higher education and creating a new generation of global citizens.">minerva university</Link>
-        (2024-2026). previously studied at pontificia universidad católica
+        (2022-2026). previously studied at pontificia universidad católica
         de chile and universidad técnica federico santa maría.
       </Paragraph>
     </section>
