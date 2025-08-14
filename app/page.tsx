@@ -1,4 +1,4 @@
-import { NOTION_PROJECTS_URL } from "@/lib/constants";
+// import { NOTION_PROJECTS_URL } from "@/lib/constants";
 // import HaveWeMet from "@/components/HaveWeMet";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Link from "@/components/link";
@@ -24,15 +24,17 @@ export default function Page() {
       <h2 className="font-normal mb-2">today</h2>
 
       <Paragraph className="mb-4">
-        i&apos;m a principal software engineer at <Link href="https://dataroot.cl/">dataroot</Link>, building a paas for
+        i&apos;m the cto of <Link href="https://velum-labs.com" >velum labs</Link>, working on a new paradigm for zero-trust machine learning.
+
+        previously, i was a principal software engineer at <Link href="https://dataroot.cl/">dataroot</Link>, building a paas for
         managed machine learning powered applications.
       </Paragraph>
 
-      <Paragraph className="mb-4">
+      {/* <Paragraph className="mb-4">
         on the side, i&apos;m helping reinvent computers at <Link href="https://tetramem.com" title="Tetramem" description="Tetramem is a company that is creating in-memory analog hardware accelerators.">tetramem</Link>.
-      </Paragraph>
+      </Paragraph> */}
 
-      <Paragraph>
+      {/* <Paragraph>
         in my free time, i work on{" "}
         <Link
           href={NOTION_PROJECTS_URL}
@@ -43,7 +45,7 @@ export default function Page() {
           these projects
         </Link>
         .
-      </Paragraph>
+      </Paragraph> */}
     </section>
 
     <section>
