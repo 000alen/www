@@ -2,7 +2,7 @@
 // import HaveWeMet from "@/components/HaveWeMet";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Link from "@/components/link";
-import EncryptedText from "@/components/EncryptedText";
+import EncryptedTextSmooth from "@/components/EncryptedTextSmooth";
 import Paragraph from "@/components/paragraph";
 import { TetrisEasterEgg } from "@/components/tetris";
 
@@ -25,7 +25,7 @@ export default function Page() {
       <h2 className="font-normal mb-2">today</h2>
 
       <Paragraph className="mb-4">
-        i&apos;m the cto of <EncryptedText insideLength={12} />,
+        i&apos;m the cto of <EncryptedTextSmooth insideLength={12} />,
         working on a new paradigm for zero-trust machine learning.
 
         previously, i was a principal software engineer at <Link href="https://dataroot.cl/">dataroot</Link>, building a paas for

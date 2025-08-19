@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -15,7 +17,7 @@ interface EncryptedTextProps {
 
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/#%*=_-░▒▓█";
 
-export default function EncryptedText({
+export default function EncryptedTextSmooth({
   className,
   insideLength = 12,
   idleText = "...",
@@ -150,3 +152,4 @@ export default function EncryptedText({
     </span>
   );
 }
+
