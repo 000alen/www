@@ -7,12 +7,10 @@ interface EncryptedTextProps {
   className?: string;
   /** Number of characters to render between the angle brackets */
   insideLength?: number;
-  /** Base string to display when idle (will be tiled to fill insideLength) */
-  idleText?: string;
-  /** How often a glitch cycle should start (ms) */
-  glitchEveryMs?: number;
-  /** How long each glitch cycle lasts (ms) */
-  glitchDurationMs?: number;
+  /** Minimum ms before a character changes to a new glyph */
+  minCharIntervalMs?: number;
+  /** Maximum ms before a character changes to a new glyph */
+  maxCharIntervalMs?: number;
 }
 
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/#%*=_-░▒▓█";
@@ -20,93 +18,64 @@ const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/#%*=_-░▒▓█";
 export default function EncryptedTextSmooth({
   className,
   insideLength = 12,
-  idleText = "...",
-  glitchEveryMs = 3000,
-  glitchDurationMs = 900,
+  minCharIntervalMs = 800,
+  maxCharIntervalMs = 2000,
 }: EncryptedTextProps) {
-  // Base string tiled to target length for stability
-  const baseString = useMemo(() => {
-    if (!idleText) return " ".repeat(insideLength);
-    let s = "";
-    while (s.length < insideLength) s += idleText;
-    return s.slice(0, insideLength);
-  }, [idleText, insideLength]);
-
-  const [innerText, setInnerText] = useState<string>(baseString);
-  const [isGlitching, setIsGlitching] = useState<boolean>(false);
-
+  // Continuous, slow, smooth scrambling per-character
+  const [innerText, setInnerText] = useState<string>("");
+  const charsRef: React.MutableRefObject<string[]> = useRef<string[]>([]);
+  const nextUpdateAtMsRef: React.MutableRefObject<number[]> = useRef<number[]>([]);
   const rafIdRef = useRef<number | null>(null);
-  const schedulerIdRef = useRef<number | null>(null);
-  const startTimeRef = useRef<number | null>(null);
+  const lastRenderAtMsRef = useRef<number>(0);
 
-  function easeInOutQuad(t: number) {
-    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-  }
+  const initialDelayMs = useMemo(() => Math.floor(Math.random() * 400), []);
 
-  function pickRandomIndices(poolSize: number, count: number): number[] {
-    const chosen = new Set<number>();
-    while (chosen.size < count) {
-      chosen.add(Math.floor(Math.random() * poolSize));
-    }
-    return Array.from(chosen);
-  }
+  const randomGlyph = useCallback(() => {
+    return GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+  }, []);
 
-  const buildFrame = useCallback((progress01: number) => {
-    const eased = easeInOutQuad(progress01);
-    const scrambleCount = Math.max(1, Math.round(eased * insideLength));
-    const indices = pickRandomIndices(insideLength, scrambleCount);
-    const chars = baseString.split("");
-    for (const idx of indices) chars[idx] = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-    return chars.join("");
-  }, [baseString, insideLength]);
+  const randomDelay = useCallback(() => {
+    return Math.floor(minCharIntervalMs + Math.random() * (maxCharIntervalMs - minCharIntervalMs));
+  }, [minCharIntervalMs, maxCharIntervalMs]);
 
-  const initialDelayMs = useMemo(() => Math.floor(Math.random() * 500), []);
+  // Reinitialize buffers when length changes
+  useEffect(() => {
+    const now = performance.now();
+    charsRef.current = Array.from({ length: insideLength }, () => randomGlyph());
+    nextUpdateAtMsRef.current = Array.from({ length: insideLength }, () => now + randomDelay());
+    setInnerText(charsRef.current.join(""));
+  }, [insideLength, randomDelay, randomGlyph]);
 
   useEffect(() => {
-    setInnerText(baseString);
-  }, [baseString]);
-
-  useEffect(() => {
-    function cancelRaf() {
-      if (rafIdRef.current !== null) {
-        cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = null;
+    function loop(now: number) {
+      let mutated = false;
+      for (let i = 0; i < insideLength; i += 1) {
+        if (now >= (nextUpdateAtMsRef.current[i] || 0)) {
+          charsRef.current[i] = randomGlyph();
+          nextUpdateAtMsRef.current[i] = now + randomDelay();
+          mutated = true;
+        }
       }
-    }
 
-    function frame(now: number) {
-      if (startTimeRef.current === null) startTimeRef.current = now;
-      const elapsed = now - startTimeRef.current;
-      const t = Math.max(0, Math.min(1, elapsed / glitchDurationMs));
-      setInnerText(buildFrame(t));
-      if (elapsed < glitchDurationMs) {
-        rafIdRef.current = requestAnimationFrame(frame);
-      } else {
-        setInnerText(baseString);
-        setIsGlitching(false);
-        startTimeRef.current = null;
+      // Throttle renders to ~12 fps for smoothness without flicker
+      if (mutated && now - lastRenderAtMsRef.current > 80) {
+        setInnerText(charsRef.current.join(""));
+        lastRenderAtMsRef.current = now;
       }
-    }
 
-    function startGlitchCycle() {
-      setIsGlitching(true);
-      startTimeRef.current = null;
-      cancelRaf();
-      rafIdRef.current = requestAnimationFrame(frame);
+      rafIdRef.current = requestAnimationFrame(loop);
     }
 
     const kickoff = window.setTimeout(() => {
-      startGlitchCycle();
-      schedulerIdRef.current = window.setInterval(startGlitchCycle, glitchEveryMs);
+      rafIdRef.current = requestAnimationFrame(loop);
     }, initialDelayMs);
 
     return () => {
       window.clearTimeout(kickoff);
-      if (schedulerIdRef.current !== null) window.clearInterval(schedulerIdRef.current);
-      schedulerIdRef.current = null;
-      cancelRaf();
+      if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = null;
     };
-  }, [baseString, glitchDurationMs, glitchEveryMs, initialDelayMs, insideLength, buildFrame]);
+  }, [insideLength, initialDelayMs, randomDelay, randomGlyph]);
 
   return (
     <span
@@ -117,14 +86,11 @@ export default function EncryptedTextSmooth({
       aria-label="company name redacted"
     >
       {"<"}
-      <span
-        className={cn("relative px-[0.125rem]", isGlitching && "[filter:contrast(1.02)_saturate(1.05)]")}
-        aria-hidden={false}
-      >
-        <span className={cn("transition-opacity duration-200", isGlitching ? "opacity-100" : "opacity-90")}>{innerText}</span>
-        <span className="absolute inset-0 pointer-events-none opacity-[0.1] translate-x-[0.5px] mix-blend-screen" aria-hidden>{innerText}</span>
-        <span className="pointer-events-none absolute inset-0 opacity-15 mix-blend-overlay scanline" />
-        <span className="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen glow" />
+      <span className={cn("relative px-[0.125rem] [filter:contrast(1.02)_saturate(1.04)]")} aria-hidden={false}>
+        <span className="opacity-90">{innerText}</span>
+        <span className="absolute inset-0 pointer-events-none opacity-[0.08] translate-x-[0.5px] mix-blend-screen" aria-hidden>{innerText}</span>
+        <span className="pointer-events-none absolute inset-0 opacity-10 mix-blend-overlay scanline" />
+        <span className="pointer-events-none absolute inset-0 opacity-15 mix-blend-screen glow" />
       </span>
       {">"}
 
@@ -152,4 +118,3 @@ export default function EncryptedTextSmooth({
     </span>
   );
 }
-
