@@ -2,7 +2,6 @@
 // import HaveWeMet from "@/components/HaveWeMet";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Link from "@/components/link";
-import EncryptedTextSmooth from "@/components/EncryptedTextSmooth";
 import Paragraph from "@/components/paragraph";
 import { TetrisEasterEgg } from "@/components/tetris";
 
