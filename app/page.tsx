@@ -25,7 +25,7 @@ export default function Page() {
 
       <Paragraph className="mb-4">
         i&apos;m a co-founder and cto of <Link href="https://velum-labs.com/">velum labs</Link>,
-        building the ai privacy company. we are backed by <Link href="https://www.ycombinator.com/">y combinator</Link>.
+        building the ai privacy company. enterprises face a false choice: either expose sensitive data to get AI value, or keep it locked up and lose competitive advantage. velum&apos;s data firewall removes sensitive information while preserving computational value — you get both security and ai capability. we are backed by <Link href="https://www.ycombinator.com/">y combinator</Link>.
 
         previously, i was a principal software engineer at <Link href="https://dataroot.cl/">dataroot</Link>, building a paas for
         managed machine learning powered applications.
