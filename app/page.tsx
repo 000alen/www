@@ -38,6 +38,8 @@ export default function Page() {
         deep learning research at vanderbilt university, working on protein
         folding and structural biology. previously at leipzig university,
         developing topological neural networks for molecule optimization.
+        also worked at <Link href="https://tetramem.com" title="Tetramem" description="Tetramem builds in-memory analog hardware accelerators.">tetramem</Link> on
+        denoising algorithms for extremely energy efficient analog computers.
       </Paragraph>
     </section>
 
@@ -49,43 +51,6 @@ export default function Page() {
         previously studied at pontificia universidad católica de chile and
         universidad técnica federico santa maría.
       </Paragraph>
-    </section>
-
-    <section>
-      <h2 className="font-normal mb-2">awards</h2>
-
-      <ul className="list-none p-0 space-y-1 mb-8">
-        <li>
-          <Link
-            href="https://github.com/000alen/pulsebud"
-            title="PulseBud @ CalHacks"
-            description="First place. Built a model to predict seizures in real-time from smartwatch measurements."
-          >
-            calhacks — first place
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="https://github.com/000alen/phaedra"
-            title="Phaedra @ HackMIT"
-            description="First place. Built a platform for traditional knowledge transfer in the workplace."
-          >
-            hackmit — first place
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="https://github.com/000alen/totemuv"
-            title="TotemUV @ Samsung Solve for Tomorrow"
-            description="National winner. Built a computer vision model to predict skin cancer from UV imaging."
-          >
-            samsung solve for tomorrow — national winner
-          </Link>
-        </li>
-        <li>
-          850/850 on the chilean mathematics entrance exam (psu)
-        </li>
-      </ul>
     </section>
 
     <section>
