@@ -24,29 +24,10 @@ export default function Page() {
       <h2 className="font-normal mb-2">today</h2>
 
       <Paragraph className="mb-4">
-        i&apos;m a co-founder and cto of <Link href="https://velum-labs.com/">velum labs</Link>,
-        building the ai privacy company. we are backed by <Link href="https://www.ycombinator.com/">y combinator</Link>.
-
-        previously, i was a principal software engineer at <Link href="https://dataroot.cl/">dataroot</Link>, building a paas for
-        managed machine learning powered applications.
+        co-founder and cto of <Link href="https://velum-labs.com/" description="Velum Labs builds Alma, a semantic control plane for data warehouses.">velum labs</Link> (<Link href="https://www.ycombinator.com/">yc w26</Link>).
+        building <Link href="https://velum-labs.com/" title="Alma" description="Alma watches query traffic, learns what business concepts mean, and when definitions drift it catches it and opens a pull request.">alma</Link>,
+        a semantic control plane for data. we turn data breakages into pull requests.
       </Paragraph>
-
-      {/* <Paragraph className="mb-4">
-        on the side, i&apos;m helping reinvent computers at <Link href="https://tetramem.com" title="Tetramem" description="Tetramem is a company that is creating in-memory analog hardware accelerators.">tetramem</Link>.
-      </Paragraph> */}
-
-      {/* <Paragraph>
-        in my free time, i work on{" "}
-        <Link
-          href={NOTION_PROJECTS_URL}
-          title="Projects"
-          description="I decided I would start documenting and keeping track of my projects. I'm not sure how long I'll keep this up, but here are some of the things I've worked on."
-          target="_blank"
-        >
-          these projects
-        </Link>
-        .
-      </Paragraph> */}
     </section>
 
     <section>
@@ -63,9 +44,9 @@ export default function Page() {
       <h2 className="font-normal mb-2">education</h2>
 
       <Paragraph>
-        b.sc. computer science and mathematics at <Link href="https://www.minerva.edu/" description="Minerva is an experimental university reinventing higher education and creating a new generation of global citizens.">minerva university</Link>
-        (2022-2026). previously studied at pontificia universidad católica
-        de chile and universidad técnica federico santa maría.
+        dropped out of <Link href="https://www.minerva.edu/" description="Minerva is an experimental university reinventing higher education and creating a new generation of global citizens.">minerva university</Link> (computer science and mathematics, 2022-2024) to start velum labs.
+        previously studied at pontificia universidad católica de chile and
+        universidad técnica federico santa maría.
       </Paragraph>
     </section>
 
@@ -77,28 +58,31 @@ export default function Page() {
           <Link
             href="https://github.com/000alen/pulsebud"
             title="PulseBud @ CalHacks"
-            description="I won the competition by building a model to predict seizures on real-time from measurements taken by a smartwatch."
+            description="First place. Built a model to predict seizures in real-time from smartwatch measurements."
           >
-            CalHacks and several partner challenges
+            calhacks — first place
           </Link>
         </li>
         <li>
           <Link
             href="https://github.com/000alen/phaedra"
             title="Phaedra @ HackMIT"
-            description="I won some partner challenge by building a platform to facilitate traditional knowledge transfer in the workplace."
+            description="First place. Built a platform for traditional knowledge transfer in the workplace."
           >
-            HackMIT&apos;s Inclusive Workplace challenge
+            hackmit — first place
           </Link>
         </li>
         <li>
           <Link
             href="https://github.com/000alen/totemuv"
-            title="TotemUV @ Solve for Tomorrow"
-            description="I won the competition by building a device to predict skin cancer from UV imaging."
+            title="TotemUV @ Samsung Solve for Tomorrow"
+            description="National winner. Built a computer vision model to predict skin cancer from UV imaging."
           >
-            Solve for Tomorrow
+            samsung solve for tomorrow — national winner
           </Link>
+        </li>
+        <li>
+          850/850 on the chilean mathematics entrance exam (psu)
         </li>
       </ul>
     </section>
