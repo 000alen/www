@@ -24,9 +24,10 @@ export default function Page() {
       <h2 className="font-normal mb-2">today</h2>
 
       <Paragraph className="mb-4">
-        co-founder and cto of <Link href="https://velum-labs.com/" description="Velum Labs builds Alma, a semantic control plane for data warehouses.">velum labs</Link> (<Link href="https://www.ycombinator.com/">yc w26</Link>).
-        building <Link href="https://velum-labs.com/" title="Alma" description="Alma watches query traffic, learns what business concepts mean, and when definitions drift it catches it and opens a pull request.">alma</Link>,
-        a semantic control plane for data. we turn data breakages into pull requests.
+        co-founder and cto of <Link href="https://velum-labs.com/" description="Velum Labs builds Alma, the operating system for data integrity at scale.">velum labs</Link> (<Link href="https://www.ycombinator.com/">yc w26</Link>).
+        building <Link href="https://velum-labs.com/" title="Alma" description="Alma learns ontologies from query traffic and enforces them. When definitions drift, it catches it and opens a pull request.">alma</Link>,
+        the operating system for data integrity at scale. we learn ontologies from query traffic
+        and enforce them. when definitions drift, we catch it and open a pull request.
       </Paragraph>
     </section>
 
