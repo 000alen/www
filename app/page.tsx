@@ -27,7 +27,7 @@ export default function Page() {
         co-founder and cto of <Link href="https://velum-labs.com/" description="Velum Labs builds Alma, the operating system for data integrity at scale.">velum labs</Link> (<Link href="https://www.ycombinator.com/">yc w26</Link>).
         building <Link href="https://velum-labs.com/" title="Alma" description="Alma learns ontologies from query traffic and enforces them. When definitions drift, it catches it and opens a pull request.">alma</Link>,
         the operating system for data integrity at scale. we learn ontologies from query traffic
-        and enforce them. when definitions drift, we catch it and open a pull request.
+        and distributed lineage, and enforce them. when definitions drift, we catch it and open a pull request.
       </Paragraph>
     </section>
 
