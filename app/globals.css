@@ -133,3 +133,26 @@ a:hover::after {
     @apply bg-background text-foreground;
   }
 }
+
+/* Keep the personal page quiet and readable without restyling other routes. */
+.personal-home p,
+.personal-home a {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.personal-home a {
+  color: inherit;
+}
+
+.personal-home a:focus-visible,
+.personal-home button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+  }
+}
