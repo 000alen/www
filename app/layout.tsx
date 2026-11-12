@@ -9,7 +9,7 @@ import { ViewTransitions } from "next-view-transitions";
 
 export const metadata: Metadata = {
   title: "alen rubilar-muñoz",
-  description: "alen's personal website",
+  description: "alen rubilar-muñoz — co-founder and cto at velum labs. inference systems, model context and representation learning.",
 };
 
 export default function RootLayout({

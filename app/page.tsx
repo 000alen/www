@@ -1,92 +1,68 @@
-// import { NOTION_PROJECTS_URL } from "@/lib/constants";
-// import HaveWeMet from "@/components/HaveWeMet";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Link from "@/components/link";
 import Paragraph from "@/components/paragraph";
 import { TetrisEasterEgg } from "@/components/tetris";
 
 export default function Page() {
-  return <div className="max-w-2xl w-full text-sm uppercase">
-    <div className="flex justify-between items-center mb-2">
-      <h1 className="font-normal">
-        alen rubilar-muñoz<span className="caret">_</span>
-      </h1>
-      <ThemeToggle />
-    </div>
+  return (
+    <main className="personal-home w-full max-w-2xl py-10 sm:py-16">
+      <header className="mb-12 flex items-center justify-between gap-4">
+        <h1 className="text-base font-normal sm:text-lg">
+          alen rubilar-muñoz<span className="caret" aria-hidden="true">_</span>
+        </h1>
+        <ThemeToggle />
+      </header>
 
-    <Paragraph className="mb-4">
-      san francisco, usa
-    </Paragraph>
-
-    <div className="mb-8"></div>
-
-    <section>
-      <h2 className="font-normal mb-2">today</h2>
-
-      <Paragraph className="mb-4">
-        co-founder and cto of <Link href="https://velum-labs.com/" description="Velum Labs builds Alma, the operating system for data integrity at scale.">velum labs</Link> (<Link href="https://www.ycombinator.com/">yc w26</Link>).
-        building <Link href="https://velum-labs.com/" title="Alma" description="Alma learns ontologies from query traffic and enforces them. When definitions drift, it catches it and opens a pull request.">alma</Link>,
-        the operating system for data integrity at scale. we learn ontologies from query traffic
-        and distributed lineage, and enforce them. when definitions drift, we catch it and open a pull request.
+      <Paragraph className="mb-12">
+        co-founder and cto at{" "}
+        <Link href="https://velum-labs.com/" description="Dedicated inference and research on reusing model context.">velum labs</Link>{" "}
+        (<Link href="https://www.ycombinator.com/">yc w26</Link>).
+        i build systems for running models and reusing the computation behind them.
       </Paragraph>
-    </section>
 
-    <section>
-      <h2 className="font-normal mb-2">research</h2>
+      <section aria-labelledby="building-title" className="mb-10">
+        <h2 id="building-title" className="mb-3 text-sm font-normal">building</h2>
+        <Paragraph className="mb-0">
+          at velum, we&apos;re working on dedicated inference in your own cloud.
+          i&apos;m interested in the systems underneath: where models run, where
+          their context lives, and how much work we can avoid doing twice.
+        </Paragraph>
+      </section>
 
-      <Paragraph>
-        deep learning research at vanderbilt university, working on protein
-        folding and structural biology. previously at leipzig university,
-        developing topological neural networks for molecule optimization.
-        also worked at <Link href="https://tetramem.com" title="Tetramem" description="Tetramem builds in-memory analog hardware accelerators.">tetramem</Link> on
-        denoising algorithms for extremely energy efficient analog computers.
-      </Paragraph>
-    </section>
+      <section aria-labelledby="research-title" className="mb-10">
+        <h2 id="research-title" className="mb-3 text-sm font-normal">research</h2>
+        <Paragraph className="mb-0">
+          exploring portable and composable kv caches: transferring attention
+          state between models, and reusing cached blocks across requests.
+          the question is how to share useful computation without losing what
+          makes each model work.
+        </Paragraph>
+      </section>
 
-    <section>
-      <h2 className="font-normal mb-2">education</h2>
+      <section aria-labelledby="previously-title" className="mb-10">
+        <h2 id="previously-title" className="mb-3 text-sm font-normal">previously</h2>
+        <Paragraph className="mb-4">
+          worked on deep learning for protein structure at vanderbilt,
+          topological neural networks for molecules in leipzig, and calibration
+          and denoising for analog compute at{" "}
+          <Link href="https://tetramem.com" title="tetramem" description="In-memory analog hardware accelerators.">tetramem</Link>.
+        </Paragraph>
+        <Paragraph className="mb-0">
+          studied computer science and mathematics at{" "}
+          <Link href="https://www.minerva.edu/">minerva</Link>. left to build velum.
+        </Paragraph>
+      </section>
 
-      <Paragraph>
-        dropped out of <Link href="https://www.minerva.edu/" description="Minerva is an experimental university reinventing higher education and creating a new generation of global citizens.">minerva university</Link> (computer science and mathematics, 2022-2024) to start velum labs.
-        previously studied at pontificia universidad católica de chile and
-        universidad técnica federico santa maría.
-      </Paragraph>
-    </section>
+      <section aria-labelledby="connect-title">
+        <h2 id="connect-title" className="mb-3 text-sm font-normal">connect</h2>
+        <nav aria-label="Social profiles" className="flex flex-wrap gap-x-6 gap-y-3">
+          <Link href="https://github.com/000alen" title="github">github</Link>
+          <Link href="https://x.com/000alen" title="x">x</Link>
+          <Link href="https://www.linkedin.com/in/000alen/" title="linkedin">linkedin</Link>
+        </nav>
+      </section>
 
-    <section>
-      <h2 className="font-normal mb-2">connect</h2>
-
-      <Paragraph>
-        reach me on{" "}
-        <Link
-          href="https://x.com/000alen"
-          title="𝕏"
-          description="I retweet a lot of cool stuff."
-        >
-          𝕏
-        </Link>{" "}
-        or find me on{" "}
-        <Link
-          href="https://github.com/000alen"
-          title="GitHub"
-          description="I'm very active on GitHub, so you can find some of my projects there."
-        >
-          github
-        </Link>{" "}
-        and{" "}
-        <Link
-          href="https://www.linkedin.com/in/000alen/"
-          title="LinkedIn"
-          description="I'm not very active on LinkedIn, but you can find some of my projects there."
-        >
-          linkedin
-        </Link>
-        .
-      </Paragraph>
-    </section>
-
-    {/* <HaveWeMet /> */}
-
-    <TetrisEasterEgg />
-  </div>;
+      <TetrisEasterEgg />
+    </main>
+  );
 }
